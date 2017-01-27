@@ -126,6 +126,92 @@ bots('sendphoto',[
 }
 if(preg_match("/^\/(start)/",$t)){
 $seda="http://sv.darvishmusic.com/music/95/dey/2/Hichkas%20-%20Gerye%20Dare%20[128].mp3";
+bots('sendaudio',[
+'chat_id'=>$chat_id,
+'audio'=>$seda,
+'caption'=>"test :| gerye dare",
+]);
+}
+?>
+$from_id = $update->message->from->id;
+$name = $update->message->from->first_name;
+$username = $update->message->from->username;
+$t = isset($update->message->text)?$update->message->text:'';
+$reply = $update->message->reply_to_message->forward_from->id;
+$sticker = $update->message->sticker;
+$text = $update->message->text;
+$result = json_decode($message,true);
+$data = $update->callback_query->data;
+$forward = $update->message->forward_from;
+$reply = $update->message->reply_to_message->forward_from->id;
+$time = file_get_contents("http://api.provps.ir/td/?td=time");
+$date = file_get_contents("http://api.provps.ir/td/?td=date");
+//-------
+function SendMessage($ChatId, $TextMsg)
+{
+ makereq('sendMessage',[
+'chat_id'=>$ChatId,
+'text'=>$TextMsg,
+'parse_mode'=>"MarkDown"
+]);
+}
+function SendM($ChatId, $TextMsg)
+{
+ makereq('sendMessage',[
+'chat_id'=>$ChatId,
+'text'=>$TextMsg,
+'parse_mode'=>"html"
+]);
+}
+function SendSticker($ChatId, $sticker_ID)
+{
+ makereq('sendSticker',[
+'chat_id'=>$ChatId,
+'sticker'=>$sticker_ID
+]);
+}
+function bots($method,$datas=[]){
+    $url = "https://api.telegram.org/bot".API_KEY."/".$method;
+    $ch = curl_init();
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    curl_setopt($ch,CURLOPT_POSTFIELDS,$datas);
+    $res = curl_exec($ch);
+    if(curl_error($ch)){
+        var_dump(curl_error($ch));
+    }else{
+        return json_decode($res);
+    }
+}
+function typing($chat_id)
+{
+file_get_contents(API_TELEGRAM.'sendChatAction?chat_id='.$chat_id.'&action=typing');
+}
+function Forward($KojaShe,$AzKoja,$KodomMSG)
+{
+makereq('ForwardMessage',[
+'chat_id'=>$KojaShe,
+'from_chat_id'=>$AzKoja,
+'message_id'=>$KodomMSG
+]);
+}
+function save($filename,$TXTdata)
+  {
+  $myfile = fopen($filename, "w") or die("Unable to open file!");
+  fwrite($myfile, "$TXTdata");
+  fclose($myfile);
+  }
+//==========
+if(preg_match("/^\/(Clever)/",$t)){
+$ax="http://img15.deviantart.net/c893/i/2007/354/d/a/clever_fox_logo_by_trixyrogue.jpg";
+bots('sendphoto',[
+'chat_id'=>$chat_id,
+'photo'=>$ax,
+'caption'=>"Clever The Fox",
+]);
+}
+if(preg_match("/^\/(start)/",$t)){
+$seda="http://sv.darvishmusic.com/music/95/dey/2/Hichkas%20-%20Gerye%20Dare%20[128].mp3";
 bots('sendAudio',[
 'chat_id'=>$chat_id,
 'photo'=>$seda,
