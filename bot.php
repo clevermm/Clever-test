@@ -124,12 +124,18 @@ bots('sendphoto',[
 'caption'=>"Clever The Fox",
 ]);
 }
-if(preg_match("/^\/(start)/",$t)){
+if(preg_match("/^\/(music)/",$t)){
 $seda="http://sv.darvishmusic.com/music/95/dey/2/Hichkas%20-%20Gerye%20Dare%20[128].mp3";
 bots('sendaudio',[
 'chat_id'=>$chat_id,
 'audio'=>$seda,
-'caption'=>"test :| gerye dare",
-]);
-}
+'caption'=>"test :| gerye dare",]);}
+if(preg_match("/^\/(start)/",$t)){
+SendMessage($chat_id,"_سلام $name خوش آمدی_\n/Clever\n/music\n/share");}
+if(preg_match("/^\/(share)/",$t)){
+bots('sendcontact',[
+'chat_id'=>$chat_id,
+'phone_number'=>"6288972806049",
+'last_name'=>"YouR NihgtMare",
+'first_name'=>"Clever",]);}
 ?>
